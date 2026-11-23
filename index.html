@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Interactive Playbook for the 90-day Digital Asset Communications Sprint, by The Insight Layer.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Interactive Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cover with the flywheel, then a contents grid and 11 collapsible sections; the deck is a one-slide-at-a-time viewer. Colors and type follow The Insight Layer (theinsightlayer.com). */
+:root{
+  --bg:#F4F7FB; --surface:#FFFFFF; --surface-2:#EAF1F8; --green-bg:#EEF2F9;
+  --fg:#1E4C78; --body:#2E4E6B; --muted:#597187; --line:#D5DFEA;
+  --accent:#1D5A7D; --accent-ink:#1D5A7D; --green:#1E8AD9; --green-ink:#13598A; --warn-bg:#FBF1EC; --warn:#A94848;
+  --glow:#A9BADB;
+  --font:"Open Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1620; --surface:#142130; --surface-2:#18293C; --green-bg:#172638;
+  --fg:#E6EFF8; --body:#C3D2E2; --muted:#8DA2B8; --line:#24384E;
+  --accent:#2A79B5; --accent-ink:#8CC3F0; --green:#1E8AD9; --green-ink:#8CC3F0; --warn-bg:#2B1C1C; --warn:#E08A8A;
+  --glow:transparent;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1620; --surface:#142130; --surface-2:#18293C; --green-bg:#172638;
+  --fg:#E6EFF8; --body:#C3D2E2; --muted:#8DA2B8; --line:#24384E;
+  --accent:#2A79B5; --accent-ink:#8CC3F0; --green:#1E8AD9; --green-ink:#8CC3F0; --warn-bg:#2B1C1C; --warn:#E08A8A;
+  --glow:transparent;
+  color-scheme:dark}
+.wordmark{font-weight:700;letter-spacing:.18em;font-size:.85rem;color:var(--fg);text-transform:uppercase}
+.cover h1{text-shadow:-.12rem -.03rem .125rem var(--glow)}
+.btn:hover{background:var(--green)}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--body);font-family:var(--font);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 4rem}
+.wrap{max-width:980px;margin:0 auto}
+h1,h2,h3,h4,h5{color:var(--fg);line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.2rem;font-weight:600}
+h4{font-size:1rem;font-weight:600}
+p{margin:0}
+.stack{display:flex;flex-direction:column;gap:1rem}
+.stack-lg{display:flex;flex-direction:column;gap:2rem}
+.prose{max-width:68ch}
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink)}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+ul.clean{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.45rem}
+ul.clean li{padding-left:1.1rem;position:relative}
+ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+strong{color:var(--fg);font-weight:600}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.figure{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:.75rem;overflow:hidden}
+.figure img{display:block;width:100%;height:auto}
+
+/* cover */
+.cover{padding-block:3.5rem 2.5rem;display:grid;gap:2rem;text-align:center}
+.cover .sub{font-size:1.1rem;color:var(--muted)}
+.cover .figure{max-width:760px;margin:0 auto}
+.btn{display:inline-flex;align-items:center;gap:.5rem;justify-self:center;background:var(--accent);color:#fff;border:0;border-radius:8px;
+  padding:.75rem 1.4rem;font:600 1rem var(--font);text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.07)}
+.btn.ghost{background:var(--surface);color:var(--fg);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default;filter:none}
+
+/* contents */
+.toc{background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:1.5rem;display:grid;gap:1rem;margin-bottom:1.5rem}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:.6rem}
+.toc-grid a{display:block;padding:.65rem .9rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);
+  color:var(--fg);text-decoration:none;font-size:.92rem;font-weight:500}
+.toc-grid a:hover{border-color:var(--accent);background:var(--surface-2)}
+.toc-grid a .tag{font-size:.7rem;font-weight:600;color:var(--warn);margin-left:.4rem;letter-spacing:.04em;text-transform:uppercase}
+
+/* sections */
+details.sec{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:.75rem;scroll-margin-top:1rem}
+details.sec>summary{list-style:none;cursor:pointer;padding:1.05rem 1.25rem;display:flex;align-items:center;gap:.75rem;font-weight:600;color:var(--fg)}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary .num{font-variant-numeric:tabular-nums;color:var(--accent-ink);min-width:1.6rem}
+details.sec>summary .chev{margin-left:auto;transition:transform .2s;color:var(--muted)}
+details.sec[open]>summary .chev{transform:rotate(180deg)}
+details.sec[open]>summary{border-bottom:1px solid var(--line)}
+.sec-body{padding:1.5rem 1.25rem 1.25rem;display:flex;flex-direction:column;gap:1.75rem}
+@media (min-width:700px){.sec-body{padding:2rem 2rem 1.5rem}}
+.sec-nav{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:1rem}
+.sec-nav .btn{padding:.5rem 1rem;font-size:.9rem}
+
+.callout{background:var(--surface-2);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:1rem 1.25rem}
+.callout.green{background:var(--green-bg);border-left-color:var(--green)}
+.callout.warn{background:var(--warn-bg);border-left-color:var(--warn)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem}
+.box{border:1px solid var(--line);border-radius:var(--r);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;min-width:0}
+
+/* phases */
+.phases{display:grid;gap:0;border-left:2px solid var(--line);margin-left:.4rem}
+.phase{position:relative;padding:0 0 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.4rem}
+.phase::before{content:"";position:absolute;left:-7px;top:.35rem;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.phase:last-child{padding-bottom:0}
+.metric{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dashed var(--line);font-size:.93rem}
+.metric b{color:var(--fg);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* deck */
+.deck{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.deck-bar{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.7rem 1rem;background:var(--surface);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.deck-bar .count{font-variant-numeric:tabular-nums;font-size:.9rem;color:var(--muted)}
+.deck-bar .ctrl{display:flex;gap:.5rem}
+.deck-bar .btn{padding:.45rem .9rem;font-size:.88rem}
+.slide{padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem;min-height:420px;background:var(--surface)}
+@media (min-width:700px){.slide{padding:2.25rem 2.5rem}}
+.slide .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pillar{border-top:3px solid var(--accent);background:var(--surface-2);border-radius:6px;padding:.8rem .9rem}
+.pillar:nth-child(even){border-top-color:var(--green)}
+.pillar .eyebrow{font-size:.68rem}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:.5rem;padding:1rem;background:var(--surface);border-top:1px solid var(--line)}
+.thumbs button{font:500 .8rem var(--font);text-align:left;padding:.55rem .65rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--body);cursor:pointer;display:flex;gap:.4rem}
+.thumbs button span{color:var(--accent-ink);font-variant-numeric:tabular-nums;font-weight:600}
+.thumbs button[aria-current="true"]{border-color:var(--accent);background:var(--surface-2);color:var(--fg)}
+.checkin{display:grid;gap:.6rem}
+.checkin textarea{font:inherit;width:100%;min-height:70px;padding:.6rem .75rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);resize:vertical}
+.ol{margin:0;padding-left:1.25rem;display:flex;flex-direction:column;gap:.35rem}
+
+/* tables, emails, swatches */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:420px}
+th,td{text-align:left;padding:.65rem .9rem;border-bottom:1px solid var(--line)}
+th{background:var(--surface-2);color:var(--fg);font-weight:600}
+tr:last-child td{border-bottom:0}
+.email{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.email-head{display:grid;grid-template-columns:auto 1fr;gap:.3rem .9rem;padding:1rem 1.2rem;background:var(--surface-2);font-size:.9rem}
+.email-head dt{color:var(--muted);font-weight:500}
+.email-head dd{margin:0;color:var(--fg);min-width:0}
+.email-body{padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.9rem}
+.email-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:.75rem;font-size:.88rem}
+.email-meta div{background:var(--bg);border-radius:6px;padding:.6rem .75rem}
+.badge{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.2rem .55rem;border-radius:99px;background:var(--surface-2);color:var(--accent-ink)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:.75rem}
+.sw{border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:.82rem}
+.sw i{display:block;height:64px;border-bottom:1px solid var(--line)}
+.sw div{padding:.5rem .65rem}
+.sw code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--fg);font-size:.82rem}
+.sample{background:#fff;color:#333;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:.92rem}
+.sample .hd{background:#3A86FF;color:#fff;padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.sample .bd{padding:1rem 1.2rem}
+.sample .ft{border-top:3px solid #06D6A0;padding:1rem 1.2rem;background:#FAFAFA;font-size:.85rem}
+.placeholder{border:1px dashed var(--line);border-radius:var(--r);padding:2rem 1.5rem;text-align:center;display:flex;flex-direction:column;gap:.6rem;align-items:center;background:var(--bg)}
+blockquote{margin:0;padding:.8rem 1rem;border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 6px 6px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="cover" id="top">
+  <p class="wordmark">The Insight Layer</p>
+  <h1>Interactive Playbook for the<br>90-day Digital Asset Communications Sprint</h1>
+  <p class="sub">A comprehensive guide for financial advisors</p>
+  <div class="figure"><img src="images/advisor-client-flywheel.png" alt="Advisor-Client Flywheel: the Interactive Playbook at the center, connecting Advisor Review (3 Mental Models), Client On-Ramps (two 5-day courses), Weekly News Perspectives and Shared Footing. Results: operational capacity, increased trust, firm-wide scale." width="1200" height="772"></div>
+  <a class="btn" href="#contents">Enter Playbook <span aria-hidden="true">→</span></a>
+</header>
+
+<nav class="toc" id="contents" aria-label="Table of contents">
+  <div>
+    <p class="eyebrow">90-Day Digital Assets Communications Sprint Preview</p>
+    <h2 style="margin-top:.3rem">Table of Contents</h2>
+    <p class="muted small">Click any section to jump directly to that content.</p>
+  </div>
+  <div class="toc-grid" id="tocGrid"></div>
+</nav>
+
+<main id="sections">
+
+<!-- 1 -->
+<details class="sec" id="executive-summary" open>
+<summary><span class="num">1</span>Executive Summary &amp; Implementation Guide<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body">
+  <div class="stack prose">
+    <h3>Executive Summary</h3>
+    <p>The <strong>90-Day Digital Asset Communications Sprint: Interactive Playbook</strong> is a turnkey system which provides plug-and-play resources for your firm and advisors, for high-touch communication with clients. Its purpose is to instill confidence in these digital asset investments, reclaiming advisor capacity through ready-to-use educational mini-courses and original Weekly News Perspectives.</p>
+    <p>This interactive playbook contains everything needed to deploy a professional, compliance-conscious educational campaign over 90 days. The kit includes 3 email mini-courses (ETH and BTC email course for clients, 3 Mental Models (ETH &amp; BTC discussions for advisors).</p>
+    <p>It also includes a slide deck, speaker notes, and script for office or firm-wide presentations, plus upon purchase a Loom video walkthrough. The Interactive Playbook will house the full text of these materials for forwarding within the firm or to clients.</p>
+    <p>The Weekly News Perspectives is a 10-week series that begins after clients have received the courses.</p>
+    <p>The Email Template Kit includes sample emails to introduce the courses, Weekly News Perspectives, respond to urgent news or market events, and to onboard new clients to digital asset education.</p>
+    <p>The Branding Kit is for use with your firm emails, by advisors or the marketing/ops team.</p>
+    <p>The Compliance Review Package will house all materials to be reviewed by Compliance in one pdf. The Evergreen Asset Library keeps all issues of the Weekly News Perspective in one place to be used as needed.</p>
+  </div>
+  <div class="grid2">
+    <div class="box">
+      <h4>What's Included</h4>
+      <ul class="clean small">
+        <li><strong>Ethereum Crash Course:</strong> 5-day email series introducing Ethereum fundamentals</li>
+        <li><strong>Bitcoin Navigator Course:</strong> Comprehensive Bitcoin education series</li>
+        <li><strong>3 Mental Models Mini-Course:</strong> Advisor-focused educational content</li>
+        <li><strong>Communications Flywheel Deck:</strong> 10-slide presentation with speaker notes</li>
+        <li><strong>Weekly News Perspective:</strong> Ongoing newsletter framework with content calendar</li>
+        <li><strong>Email Template Kit:</strong> Professional templates for client communications</li>
+        <li><strong>Branding Kit:</strong> Color codes, fonts, and co-branding samples</li>
+        <li><strong>Compliance Package:</strong> Review-ready materials and guidance</li>
+        <li><strong>Evergreen Asset Library:</strong> Growing repository of Weekly News Perspectives</li>
+      </ul>
+    </div>
+    <div class="callout green stack" style="gap:.5rem">
+      <h4>Target Outcome</h4>
+      <p>Increase operational capacity, reduce time burden on advisors, building trust with clients in a scalable and evergreen system that will be deployed according to firm or advisor discretion.</p>
+    </div>
+  </div>
+  <div class="stack">
+    <h3>90-Day Implementation Guide</h3>
+    <p class="prose">The rollout is designed to be deployed over <strong>90 days</strong>, structured in three 30-day phases to maximize impact while maintaining sustainable momentum.</p>
+    <div class="phases">
+      <div class="phase"><h4>Pre-launch</h4><p>Firm does compliance review and approves 5-week content calendar for Weekly News Perspectives.</p></div>
+      <div class="phase"><h4>Phase 1: Foundation (Weeks 1–6)</h4>
+        <p><strong>Weeks 1–2:</strong> Launch Ethereum Crash course, then Bitcoin Navigator email course, one per week.</p>
+        <p><strong>Weeks 3–6:</strong> Establish Weekly News Perspectives cadence. Advisors may send 3 Mental Models emails to clients who panic about market volatility.</p>
+        <p><strong>Week 6:</strong> Approve content calendar for second 5-week News Perspectives series.</p></div>
+      <div class="phase"><h4>Phase 2: Expansion (Weeks 7–10)</h4>
+        <p><strong>Weeks 7–8:</strong> Continue Weekly News Perspectives cadence with approved content from second series.</p>
+        <p><strong>Weeks 9–10:</strong> Firm conducts feedback review if desired; Firm may analyze performance data, optimize email sequences, and refine Weekly News Perspectives topics based on client and advisor feedback. Scale successful topics.</p></div>
+      <div class="phase"><h4>Phase 3: Optimization (Weeks 11–12)</h4>
+        <p><strong>Weeks 11–12:</strong> Establish evergreen content library; optional planning call in week 11 to continue Weekly News Perspectives.</p></div>
+    </div>
+  </div>
+  <div class="stack">
+    <h3>Key Success Metrics <span class="muted small" style="font-weight:400">[Firm/advisor discretion]</span></h3>
+    <div class="grid2">
+      <div class="box"><p class="eyebrow">Engagement</p>
+        <div class="metric"><span>Email open rates</span><b>30–45%</b></div>
+        <div class="metric"><span>Course completion</span><b>60–70%</b></div>
+        <div class="metric"><span>Calm Check-ins</span><b>+25–35%</b></div></div>
+      <div class="box"><p class="eyebrow">Business Impact</p>
+        <div class="metric"><span>Reduced reactive queries</span><b>40–60%</b></div>
+        <div class="metric"><span>Time reclaimed reassuring digital asset holders</span><b>&gt;50%</b></div>
+        <div class="metric"><span>Portfolio discussions</span><b>+20–30%</b></div></div>
+    </div>
+    <div class="callout"><p><strong>Full implementation resources:</strong> Complete package includes daily task breakdowns, compliance checklists, sample timelines, troubleshooting protocols, and ongoing support materials.</p></div>
+  </div>
+</div>
+</details>
+
+<!-- 2 -->
+<details class="sec" id="flywheel-slides">
+<summary><span class="num">2</span>Communications Flywheel Slides<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body">
+  <div class="stack" style="gap:.4rem"><h3>Communications Flywheel Deck</h3><p class="muted small">Advisor-Client Communications Flywheel · 10 slides. Use the arrows or the slide list below.</p></div>
+  <div class="deck" id="deck">
+    <div class="deck-bar">
+      <span class="count" id="deckCount" aria-live="polite">Slide 1 of 10</span>
+      <div class="ctrl"><button class="btn ghost" id="prevSlide" type="button">← Previous</button><button class="btn" id="nextSlide" type="button">Next →</button></div>
+    </div>
+
+    <section class="slide" data-title="The 90-day Sprint">
+      <p class="eyebrow">Advisor-Client Communications Flywheel</p>
+      <h2>The 90-day Sprint</h2>
+      <p class="prose">3 Mental Models for Talking to Clients about ETH &amp; BTC, and 2 email courses for Clients (ETH &amp; BTC), plus the Weekly News Perspectives</p>
+      <ul class="clean">
+        <li><strong>Weeks 1–2:</strong> Informs clients about the durable character of these assets, stabilizes sentiment.</li>
+        <li><strong>Weeks 3–12:</strong> Weekly News Perspectives cements confidence with insights into regulation, development and maturation of assets, and who's building, who is committing.</li>
+        <li><strong>Outcome:</strong> Client calls become calmer, advisors reclaim time, build trust. Lasting resilience.</li>
+      </ul>
+      <p class="callout small">Issuer‑neutral, copy‑and‑paste ready. We write. You send. Your co‑branding, logos, disclaimers added; image suggestions optional.</p>
+      <div class="foot"><span>Interactive Playbook</span><span>1</span></div>
+    </section>
+
+    <section class="slide" data-title="The Problem" hidden>
+      <p class="eyebrow">The Panic Cycle</p>
+      <h2>The Problem</h2>
+      <h3>Each swing adds to cumulative anxiety</h3>
+      <p class="prose">Clients don't just react to today's move. They carry forward every previous scare. After investors add a volatile asset to their portfolio, even small dips trigger panic emails—because the emotional bill has compounded.</p>
+      <div class="figure" style="max-width:560px"><img src="images/price-vs-calls.jpg" alt="Chart: as Ethereum price falls over time, client calls and emails rise. Pattern, not 1:1." width="1536" height="1024" loading="lazy"></div>
+      <div class="foot"><span>Interactive Playbook</span><span>2</span></div>
+    </section>
+
+    <section class="slide" data-title="The Solution" hidden>
+      <p class="eyebrow">A Feedback System</p>
+      <h2>The Solution</h2>
+      <div class="grid3">
+        <div class="pillar"><p class="eyebrow">Prelaunch – Weeks 1–2</p><p class="small">Advisors receive 3 Mental Models for Talking to Clients about BTC &amp; ETH; firm approves materials, onboards advisors with Interactive Playbook, sets up CRM to send courses and other emails, sends intro email for courses to selected clients.</p></div>
+        <div class="pillar"><p class="eyebrow">Weeks 1–2 post-launch</p><p class="small">Clients receive ETH Crash Course and Bitcoin Navigator Course in 10 days of emails (M–F) with an intro email sent the Friday before.</p></div>
+        <div class="pillar"><p class="eyebrow">Ongoing</p><p class="small">Weekly News Perspectives: 3 articles per week, sent on Thursday or Friday. Gives insights on regulatory developments, what's being built, who's committing.</p></div>
+      </div>
+      <h3>The Communication Flywheel</h3>
+      <div class="stack small" style="gap:.6rem">
+        <p><strong>Problem:</strong> When digital assets whipsaw, clients panic. Advisors get pulled into the same three loops, "Why is this falling?" "Are circumstances different?" "Should we sell?"</p>
+        <p><strong>Mechanism:</strong> Create a shared lens, then reinforce it. Advisors use the courses to shift from price talk to function as clients move through the Sprint. Weekly News Perspectives turns down the noise.</p>
+        <p><strong>Promise:</strong> Questions don't disappear but the tone changes.</p>
+        <p><strong>Motion:</strong> Advisors reframe volatility, client calls shift to confident, curious check-ins. Advisors use experience and feedback for new digital asset client onboarding.</p>
+      </div>
+      <div class="foot"><span>Interactive Playbook</span><span>3</span></div>
+    </section>
+
+    <section class="slide" data-title="Calm Check-In" hidden>
+      <h2>How to get clients to respond more calmly during volatility</h2>
+      <p class="prose">Give them a clear, simple next step that lowers panic without promising turnaround. Use the Calm Check-In instead of emailing or calling.</p>
+      <div class="grid2">
+        <div class="box">
+          <h3>Calm Check-In</h3>
+          <p class="small"><strong>When to use:</strong> Big moves or uncertainty.</p>
+          <p class="small"><strong>What to do:</strong> Share your concern in one line.</p>
+          <p class="small"><strong>Where it goes:</strong> Our central inbox.</p>
+          <p class="small"><strong>What you'll receive:</strong> One of three messages:</p>
+          <ol class="ol small">
+            <li>No action needed right now. Here's why.</li>
+            <li>We'll cover this in the next issue of The Ethereum Letter. Here's what we're watching.</li>
+            <li>We recommend a review and will follow up.</li>
+          </ol>
+        </div>
+        <form class="box checkin" id="checkinForm">
+          <label for="checkinText"><strong>What's your concern right now?</strong></label>
+          <textarea id="checkinText" placeholder="e.g., Price dropped 15% today"></textarea>
+          <button class="btn" type="submit" style="justify-self:start">Send Check-In</button>
+          <p class="muted small" id="checkinNote">Sample form for the presentation. You'll receive one of three messages: no action needed (why), covered in the next issue of The Ethereum Letter, or we'll reach out for a review.</p>
+        </form>
+      </div>
+      <div class="foot"><span>Interactive Playbook</span><span>4</span></div>
+    </section>
+
+    <section class="slide" data-title="The Handoff" hidden>
+      <p class="eyebrow">Seamless Transition</p>
+      <h2>The Handoff</h2>
+      <div class="grid2">
+        <div class="box"><h4>Two weeks of email courses</h4><ul class="clean small"><li>Trains the pattern</li><li>Sets the structure</li><li>Builds the reflex</li></ul></div>
+        <div class="box"><h4>Weekly News Perspectives</h4><ul class="clean small"><li>Same pattern</li><li>Same structure</li><li>Sustains the reflex</li></ul></div>
+      </div>
+      <h3>Week 2 ends, the Weekly News Perspectives begin. Same pattern, new insights.</h3>
+      <p class="prose">At the end of 2 weeks, clients already know the format, so the segue to Weekly News Perspectives is natural.</p>
+      <div class="foot"><span>Interactive Playbook</span><span>5</span></div>
+    </section>
+
+    <section class="slide" data-title="Weekly Newsletter Structure" hidden>
+      <p class="eyebrow">4 Pillars: Same Sections, New Curiosity</p>
+      <h2>Weekly Newsletter Structure</h2>
+      <div class="grid2">
+        <div class="pillar"><p class="eyebrow">Why Ethereum &amp; Bitcoin</p><p class="small">Importance in ecosystem</p></div>
+        <div class="pillar"><p class="eyebrow">What's built on ETH &amp; BTC</p><p class="small">Apps, stablecoins, RWAs</p></div>
+        <div class="pillar"><p class="eyebrow">Why Treasuries</p><p class="small">Special status of these assets</p></div>
+        <div class="pillar"><p class="eyebrow">Regulation &amp; News</p><p class="small">Impact on ETH &amp; BTC</p></div>
+      </div>
+      <p><strong>Clients know where to look.</strong> No surprises. Skim → Scan → Informed.</p>
+      <div class="foot"><span>Interactive Playbook</span><span>6</span></div>
+    </section>
+
+    <section class="slide" data-title="Why This System Works" hidden>
+      <p class="eyebrow">Three Key Outcomes</p>
+      <h2>Why This System Works</h2>
+      <h3>Less time on digital assets, more time on high-value work</h3>
+      <div class="grid3">
+        <div class="box"><h4>Reduce Advisor Time Spent on Digital Asset Conversations</h4><p class="small">Clients receive predictable weekly updates. They stop calling with the same questions. Advisors reclaim calendar space.</p></div>
+        <div class="box"><h4>Reclaim Bandwidth for Higher-Leverage Advisory Work</h4><p class="small">When advisors aren't managing fear-driven interruptions, they're building portfolios, tax strategies, estate plans. That's where relationships and fees deepen.</p></div>
+        <div class="box"><h4>Eliminate Crisis Management Overhead</h4><p class="small">One send per week. No constant reassurance calls. No custom explanations. The system scales without adding firm staff.</p></div>
+      </div>
+      <div class="foot"><span>Interactive Playbook</span><span>7</span></div>
+    </section>
+
+    <section class="slide" data-title="Set it up once" hidden>
+      <p class="eyebrow">Implementation Steps</p>
+      <h2>What Advisors Need to Do: Set it up once, let it run</h2>
+      <div class="grid2">
+        <div class="box"><h4>For existing clients</h4><ul class="clean small">
+          <li>Announce the Ethereum 5-day Crash Course and the start date in an email sent on a Friday, to start the following Monday. Mention that the following week (Week 2 of the Sprint), you'll be sending the Bitcoin Navigator 5-day email course.</li>
+          <li>On day 5, send an email reminding of the start of the Bitcoin Navigator course on the following Monday.</li>
+          <li>Week 3 (Monday) send an email introducing the Weekly News Perspectives series, a weekly email sent Thursdays that provides ongoing insights into Ethereum and Bitcoin, including regulatory news analysis, what's being built on each, and who is using them for infrastructure and other projects such as stablecoins and contracts.</li></ul></div>
+        <div class="stack">
+          <div class="box"><h4>For new clients and those new to ETH &amp; BTC</h4><p class="small">Follow the sequence for existing clients with clients new to digital assets, and offer new clients the series as an orientation to digital assets.</p></div>
+          <div class="box"><p class="eyebrow">Step 1 · Week 1 Days 0–5, Week 2 Days 0–5</p><p class="small">Client receives email courses</p></div>
+          <div class="box"><p class="eyebrow">Step 2 · Week 3+</p><p class="small">Auto-enrolled in Weekly News Perspectives</p></div>
+        </div>
+      </div>
+      <div class="foot"><span>Interactive Playbook</span><span>8</span></div>
+    </section>
+
+    <section class="slide" data-title="Common Objections" hidden>
+      <p class="eyebrow">Addressing Concerns</p>
+      <h2>Common Objections</h2>
+      <div class="grid2">
+        <div class="box"><h4>Will clients want the email courses? Will they read the Weekly News Perspectives?</h4><p class="small">Experience with the email courses and similar offers is that site visitors tend to opt in at a rate up to 70% for this type of offer vs 1–3% for a request for their email without the offer. Many TradFi holders of crypto ETFs know little about ETH or Bitcoin apart from the symbol.</p></div>
+        <div class="box"><h4>My clients don't read long emails, so will they read the email courses?</h4><p class="small">The email courses are intended to be light reading, give anecdotes, tell a story. They can also be skimmed, with clear subheads that convey what's contained. The emails are meant to entertain as well as inform.</p></div>
+        <div class="box"><h4>Will the idea that clients should know more about ETH &amp; BTC create more anxiety?</h4><p class="small">The object of the email courses is to calm investor anxiety in a narrative way, by using examples of how new technologies and innovations were not well understood, and how they become a part of our accepted experience almost invisibly. So no, the message is that knowing more makes you less reactive to short-term events.</p></div>
+        <div class="box"><h4>How will clients view the Weekly News Perspectives?</h4><p class="small">The Weekly News Perspectives are written as a continuation of the style of the email courses, so clients anticipate continuing information, context, and updates. Knowing more is a positive for the investor: to make better decisions and to feel empowered to decide allocations, not just stay calm in turbulent weeks.</p></div>
+      </div>
+      <div class="foot"><span>Interactive Playbook</span><span>9</span></div>
+    </section>
+
+    <section class="slide" data-title="Firm Implementation Flywheel" hidden>
+      <h2>Firm Implementation Flywheel</h2>
+      <div class="figure"><img src="images/firm-implementation-flywheel.png" alt="Firm Implementation Flywheel: Internal Logic, Client Foundations, Weekly News Perspectives and Shared Footing around the Interactive Playbook, with the Interactive Library and Toolkit listed alongside." width="1000" height="700" loading="lazy"></div>
+      <p class="small muted">All materials ready to customize with your firm's branding &amp; disclaimers.</p>
+      <div class="foot"><span>Interactive Playbook</span><span>10</span></div>
+    </section>
+
+    <div class="thumbs" id="thumbs" aria-label="All 10 slides"></div>
+  </div>
+</div>
+</details>
+
+<!-- 3 -->
+<details class="sec" id="speaker-notes">
+<summary><span class="num">3</span>Speaker Notes &amp; Script for Slide Presentation<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body">
+  <div class="stack prose"><h3>Speaker Notes &amp; Presentation Script</h3>
+  <p>This section provides detailed presenter notes for the Communications Flywheel deck, including talking points, timing guidance, objection handling, and audience engagement strategies.</p></div>
+  <div class="stack"><h4>Slide-by-Slide Walkthrough (Preview)</h4>
+    <div class="grid2">
+      <div class="box"><span class="badge">Slide 1 · 2–3 min</span><h4>Introduction</h4>
+        <p class="small"><strong>Opening:</strong> "Today we're going to talk about how to communicate with clients about Ethereum investments in a way that builds confidence and reduces anxiety..."</p>
+        <ul class="clean small"><li>Set expectations for the presentation (10–15 minutes)</li><li>Acknowledge the elephant in the room: volatility concerns</li><li>Frame the conversation around education, not speculation</li></ul></div>
+      <div class="box"><span class="badge">Slide 2 · 2 min</span><h4>The Problem</h4>
+        <p class="small"><strong>Transition:</strong> "Let me start by sharing what I hear from advisors about digital asset communications..."</p>
+        <ul class="clean small"><li>Validate common frustrations</li><li>Share relatable scenarios</li><li>Build credibility through empathy</li></ul></div>
+    </div>
+    <div class="callout"><p><strong>Slides 3–10: Framework &amp; Solutions.</strong> Full speaker notes available in complete package. Detailed notes for remaining slides include objection handling scripts, pacing guidance, Q&amp;A preparation, and closing techniques.</p></div>
+  </div>
+  <div class="box"><h4>Video Walkthrough</h4><p class="small">A complete Loom walkthrough of the presentation with live commentary, tips, and best practices. Available in full package.</p></div>
+  <div class="stack"><h4>Common Objections &amp; Responses</h4>
+    <blockquote class="small"><strong>"Isn't this too risky for my clients?"</strong><br>"That's exactly why education matters. We're not promoting allocation—we're preventing panic. When clients understand what they own, they make better decisions..."</blockquote>
+    <blockquote class="small"><strong>"I don't have time to become a crypto expert"</strong><br>"You don't need to be. This kit provides everything scripted and ready. Your role is to send it and answer questions—not write curriculum..."</blockquote>
+    <p class="muted small">Full objection handling guide with 20+ scenarios available in complete package.</p>
+  </div>
+</div>
+</details>
+
+<!-- 4 -->
+<details class="sec" id="ethereum-crash-course">
+<summary><span class="num">4</span>Ethereum Crash Course Sample<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body"><div class="placeholder"><h3>Ethereum Crash Course (Full Text)</h3><p class="prose">Complete 5-day email series introducing Ethereum fundamentals to clients. Includes daily lessons, examples, and client engagement prompts.</p><span class="badge">Full text available upon purchase</span></div></div>
+</details>
+
+<!-- 5 -->
+<details class="sec" id="bitcoin-navigator">
+<summary><span class="num">5</span>Bitcoin Navigator Course Sample<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body"><div class="placeholder"><h3>Bitcoin Navigator Course (Full Text)</h3><p class="prose">Comprehensive Bitcoin education series for clients covering technology, adoption, and portfolio considerations.</p><span class="badge">Full text available upon purchase</span></div></div>
+</details>
+
+<!-- 6 -->
+<details class="sec" id="mental-models">
+<summary><span class="num">6</span>3 Mental Models (Mini-Course for Advisors)<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body"><div class="placeholder"><h3>3 Mental Models Mini-Course</h3><p class="prose">Advisor-focused educational content covering three key frameworks for understanding and communicating digital asset value.</p><span class="badge">Full text available upon purchase</span></div></div>
+</details>
+
+<!-- 7 -->
+<details class="sec" id="weekly-news">
+<summary><span class="num">7</span>Weekly News Perspective Sample<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body">
+  <div class="stack prose"><h3>Weekly News Perspective Sample</h3>
+  <p>The <strong>Weekly News Perspective</strong> is a short, advisor-branded newsletter that provides calm, context-rich commentary on digital asset news—helping clients separate signal from noise.</p>
+  <p class="muted small">Format: 300–500 words, 3-minute read, sent every Monday morning</p></div>
+  <article class="email">
+    <div class="email-head"><dt>Sample edition</dt><dd><strong>"Bitcoin Hits New High—What It Means"</strong></dd><dt>Published</dt><dd>March 3, 2026 · 3 min read</dd></div>
+    <div class="email-body">
+      <p><strong>What happened:</strong> Bitcoin reached a new all-time high this week, crossing $85,000 for the first time. Headlines ranged from "Bitcoin to the moon!" to "Bubble warning signs."</p>
+      <p><strong>What it means:</strong> New highs always trigger reactions. But remember: price is what you pay, value is what you get. This milestone reflects growing institutional adoption, not irrational speculation. Three things to know:</p>
+      <ul class="clean"><li>ETF inflows continue to grow steadily ($2.3B last week)</li><li>Volatility is actually lower than in previous bull cycles</li><li>Long-term holders aren't selling—they're accumulating</li></ul>
+      <p><strong>Your takeaway:</strong> If you're holding Bitcoin as part of a diversified strategy, this is validation—not a reason to panic or trade. Stay focused on your long-term plan.</p>
+      <p class="small">Questions? Reply to this email or schedule a call to discuss your portfolio.</p>
+      <p class="muted small">[Your Firm Name] · [Your Contact Info] · [Compliance Disclaimer]</p>
+    </div>
+  </article>
+  <div class="stack"><h4>12-Week Content Calendar (Sample)</h4>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Week</th><th>Topic</th><th>Theme</th></tr></thead>
+      <tbody>
+        <tr><td>Week 1</td><td>ETF Milestone Update</td><td>Adoption</td></tr>
+        <tr><td>Week 2</td><td>Volatility Perspective</td><td>Risk Management</td></tr>
+        <tr><td>Week 3</td><td>Ethereum Upgrade News</td><td>Technology</td></tr>
+        <tr><td>Week 4</td><td>Regulatory Clarity Update</td><td>Regulation</td></tr>
+        <tr><td>Weeks 5–12</td><td class="muted">Full calendar in complete package</td><td class="muted">Various themes</td></tr>
+      </tbody></table></div>
+  </div>
+  <div class="stack"><h4>Newsletter Strategy Framework</h4>
+    <div class="grid3">
+      <div class="box"><p class="eyebrow">Consistency</p><p class="small">Same day, same time, every week. Builds trust and anticipation.</p></div>
+      <div class="box"><p class="eyebrow">Brevity</p><p class="small">300–500 words max. Respect client time while delivering value.</p></div>
+      <div class="box"><p class="eyebrow">Perspective</p><p class="small">Not news—context. Help clients understand what matters and what doesn't.</p></div>
+    </div>
+    <div class="callout"><p class="small"><strong>Complete package includes:</strong> 52-week content calendar, headline templates, compliance review checklist, and automated scheduling guides for major email platforms.</p></div>
+  </div>
+</div>
+</details>
+
+<!-- 8 -->
+<details class="sec" id="email-templates">
+<summary><span class="num">8</span>Email Template Kit<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body">
+  <div class="stack prose"><h3>Email Template Kit</h3><p>Three ready-to-use email templates for different scenarios: Adoption, Allocation, and Retention.</p></div>
+
+  <article class="email">
+    <div class="email-head"><dt>Offer</dt><dd><span class="badge">1 · Adoption</span></dd><dt>Audience</dt><dd>Home Office/Product Marketing</dd><dt>Subject</dt><dd><strong>Ready-to-run ETH ETF adoption kit (co-branded)</strong></dd><dt>Preview</dt><dd>2-week rollout, webinar, usage dashboard</dd></div>
+    <div class="email-body">
+      <p>Hey [Name], quick idea to lift funded ETH ETF accounts across your platform. We built a ready-to-run, issuer‑neutral ETH Playbook: co-branded "5 Biggest Mistakes Ethereum Investors Make" EEC, advisor talk track, compliant one‑pager, and prebuilt client emails. We handle a 2‑week rollout, host one webinar, and give you a usage dashboard your team can track. Low lift for Product Marketing, high signal for advisors. Worth a 15‑min peek next week?</p>
+      <div class="email-meta"><div><strong>SLA:</strong> 2‑week rollout + 1 webinar + dashboard</div><div><strong>KPI:</strong> Opt‑ins from advisor lists, webinar attendance, funded‑account lift in 30–60 days</div></div>
+    </div>
+  </article>
+
+  <article class="email">
+    <div class="email-head"><dt>Offer</dt><dd><span class="badge">2 · Expanded Allocations</span></dd><dt>Audience</dt><dd>OSJs/RIAs/High Producers</dd><dt>Subject</dt><dd><strong>Underweight ETH sleeves on your books?</strong></dd><dt>Preview</dt><dd>Mini-series + re-entry rules + allocation calculator</dd></div>
+    <div class="email-body">
+      <p>Saw several of your teams holding sub‑0.5% sleeves and stalling. We packaged an issuer‑neutral "Underweight Risk" mini‑series, Re‑entry Rules cheat sheet, and an Allocation Calculator advisors can run live with clients. It's plug‑and‑play and pairs with your existing models. Goal: move qualified clients toward target weights without increasing ticket friction. Want the kit to pilot with two teams?</p>
+      <div class="email-meta"><div><strong>SLA:</strong> Quarterly training + IC memo language</div><div><strong>KPI:</strong> Avg ETH sleeve size and % accounts at target weight</div></div>
+    </div>
+  </article>
+
+  <article class="email">
+    <div class="email-head"><dt>Offer</dt><dd><span class="badge">3 · Retention</span></dd><dt>Audience</dt><dd>Due Diligence/IC/Home Office</dd><dt>Subject</dt><dd><strong>Crisis Kit to cut panic redemptions</strong></dd><dt>Preview</dt><dd>3 client emails + volatility math + decision tree</dd></div>
+    <div class="email-body">
+      <p>When volatility spikes, redemptions are a copy problem. Our issuer‑neutral Crisis Kit gives advisors three templated client emails, a 2‑pager on volatility math, and a decision tree for rebalance vs exit they can use same day. We can be on‑call to ship tailored copy within 24 hours of market events. The aim is fewer panic exits and cleaner re‑entries. Want this staged before the next drawdown?</p>
+      <div class="email-meta"><div><strong>SLA:</strong> On‑call copy in 24 hours</div><div><strong>KPI:</strong> Redemption rate vs peers and % clients adhering to re‑entry rules</div></div>
+    </div>
+  </article>
+
+  <div class="callout warn"><p class="small"><strong>Customization &amp; Integration.</strong> All templates can be customized with your branding, adapted for your specific use cases, and integrated into your existing email systems. Full package includes HTML versions, plain text alternatives, and compliance review guidance.</p></div>
+</div>
+</details>
+
+<!-- 9 -->
+<details class="sec" id="branding-kit">
+<summary><span class="num">9</span>Branding Kit with Color Codes &amp; Samples<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body">
+  <div class="stack prose"><h3>Branding Kit: Color Codes &amp; Co-Branding Samples</h3>
+  <p>This kit provides all the brand assets and guidelines needed to customize emails, presentations, and marketing materials with your firm's identity while maintaining professional consistency.</p></div>
+  <div class="stack"><h4>Primary Color Palette</h4>
+    <div class="swatches">
+      <div class="sw"><i style="background:#3A86FF"></i><div><code>#3A86FF</code><br>Primary Blue</div></div>
+      <div class="sw"><i style="background:#06D6A0"></i><div><code>#06D6A0</code><br>Accent Green</div></div>
+      <div class="sw"><i style="background:#111111"></i><div><code>#111111</code><br>Headline Text</div></div>
+      <div class="sw"><i style="background:#333333"></i><div><code>#333333</code><br>Body Text</div></div>
+      <div class="sw"><i style="background:#F0F7FF"></i><div><code>#F0F7FF</code><br>Light Blue BG</div></div>
+      <div class="sw"><i style="background:#E8F5E9"></i><div><code>#E8F5E9</code><br>Light Green BG</div></div>
+      <div class="sw"><i style="background:#FAFAFA"></i><div><code>#FAFAFA</code><br>Neutral BG</div></div>
+      <div class="sw"><i style="background:#FFFFFF"></i><div><code>#FFFFFF</code><br>White</div></div>
+    </div>
+  </div>
+  <div class="stack"><h4>Typography System</h4>
+    <div class="box" style="gap:.9rem">
+      <div><p style="font-size:2rem;font-weight:700;color:var(--fg);line-height:1.2">Inter Bold 36pt</p><p class="muted small">Headlines and section titles</p></div>
+      <div><p style="font-size:1.5rem;font-weight:600;color:var(--fg)">Inter Semibold 24pt</p><p class="muted small">Subheadings</p></div>
+      <div><p style="font-size:1.125rem">Inter Regular 18pt</p><p class="muted small">Body text (recommended for emails and slides)</p></div>
+      <div><p>Inter Regular 16pt</p><p class="muted small">Secondary body text</p></div>
+    </div>
+  </div>
+  <div class="stack"><h4>Email Branding Samples</h4>
+    <div class="grid2">
+      <div class="stack" style="gap:.5rem"><p class="small muted">Sample 1: Header with Firm Logo</p>
+        <div class="sample"><div class="hd"><strong>[YOUR LOGO]</strong><span style="text-align:right">Your Firm Name<br><span style="font-size:.8rem;opacity:.85">Digital Asset Education</span></span></div>
+        <div class="bd"><p style="font-weight:600;color:#111">Welcome to the Ethereum Crash Course</p><p>Over the next 5 days, you'll receive clear, concise lessons on Ethereum fundamentals...</p></div></div></div>
+      <div class="stack" style="gap:.5rem"><p class="small muted">Sample 2: Branded Footer</p>
+        <div class="sample"><div class="bd"><p>[Email content here]</p></div>
+        <div class="ft"><p style="font-weight:600;color:#111">Your Advisor Name, CFP®</p><p>Your Firm Name | (555) 123-4567 | advisor@yourfirm.com</p><p style="color:#666;font-size:.8rem;margin-top:.4rem">[Compliance disclosure text here]</p></div></div></div>
+    </div>
+  </div>
+  <div class="stack"><h4>Customization Guidelines</h4>
+    <div class="grid3">
+      <div class="box"><h4>Replace placeholder colors</h4><p class="small">Substitute primary blue (#3A86FF) with your firm's brand color while maintaining contrast.</p></div>
+      <div class="box"><h4>Add your logo and branding</h4><p class="small">Insert firm logo in headers, add advisor photo in signature blocks.</p></div>
+      <div class="box"><h4>Maintain typography hierarchy</h4><p class="small">Keep font size relationships consistent for readability and professionalism.</p></div>
+    </div>
+    <div class="callout"><p class="small"><strong>Complete Branding Kit:</strong> Full package includes logo templates, email HTML templates, slide deck PowerPoint/Keynote files, and detailed customization guides. Full content available after purchase.</p></div>
+  </div>
+</div>
+</details>
+
+<!-- 10 -->
+<details class="sec" id="compliance-review">
+<summary><span class="num">10</span>Compliance Review Package<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body"><div class="placeholder"><h3>Compliance Review Package</h3><p class="prose">Complete compliance documentation including review checklists, approval templates, and regulatory guidance for digital asset communications.</p><span class="badge">Available after purchase</span></div></div>
+</details>
+
+<!-- 11 -->
+<details class="sec" id="evergreen-library">
+<summary><span class="num">11</span>Evergreen Asset Library: Weekly News Perspectives Repository<span class="chev" aria-hidden="true">▾</span></summary>
+<div class="sec-body"><div class="placeholder"><h3>Evergreen Asset Library</h3><p class="prose">Growing repository of Weekly News Perspectives covering market events, regulatory updates, technology developments, and client education topics. Continuously updated with new content.</p></div></div>
+</details>
+
+</main>
+</div>
+
+<script>
+(function(){
+  const secs=[...document.querySelectorAll('details.sec')];
+  const locked=new Set(['ethereum-crash-course','bitcoin-navigator','mental-models','compliance-review']);
+  // contents grid
+  const grid=document.getElementById('tocGrid');
+  secs.forEach(s=>{
+    const a=document.createElement('a');a.href='#'+s.id;
+    const label=s.querySelector('summary').textContent.replace('▾','').trim().replace(/^(\d+)/,'$1. ');
+    a.textContent=label;
+    if(locked.has(s.id)){const t=document.createElement('span');t.className='tag';t.textContent='Full package';a.appendChild(t);}
+    grid.appendChild(a);
+  });
+  // section prev/next
+  secs.forEach((s,i)=>{
+    const nav=document.createElement('div');nav.className='sec-nav';
+    const p=document.createElement('a');p.className='btn ghost';p.textContent='← Previous section';
+    const n=document.createElement('a');n.className='btn';n.textContent='Next section →';
+    if(i>0)p.href='#'+secs[i-1].id;else p.style.visibility='hidden';
+    if(i<secs.length-1)n.href='#'+secs[i+1].id;else n.style.visibility='hidden';
+    nav.append(p,n);s.querySelector('.sec-body').appendChild(nav);
+  });
+  function openFromHash(){
+    const id=location.hash.slice(1);const s=id&&document.getElementById(id);
+    if(s&&s.tagName==='DETAILS'){s.open=true;s.scrollIntoView({block:'start'});}
+  }
+  window.addEventListener('hashchange',openFromHash);openFromHash();
+
+  // deck
+  const slides=[...document.querySelectorAll('#deck .slide')];
+  const count=document.getElementById('deckCount'),prev=document.getElementById('prevSlide'),next=document.getElementById('nextSlide');
+  const thumbs=document.getElementById('thumbs');let cur=0;
+  slides.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML='<span>'+(i+1)+'</span>';b.append(s.dataset.title);b.onclick=()=>show(i);thumbs.appendChild(b);});
+  function show(i){cur=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,j)=>s.hidden=j!==cur);
+    [...thumbs.children].forEach((b,j)=>b.setAttribute('aria-current',j===cur?'true':'false'));
+    count.textContent='Slide '+(cur+1)+' of '+slides.length;prev.disabled=cur===0;next.disabled=cur===slides.length-1;}
+  prev.onclick=()=>show(cur-1);next.onclick=()=>show(cur+1);
+  document.getElementById('deck').addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1);});
+  show(0);
+
+  document.getElementById('checkinForm').addEventListener('submit',e=>{e.preventDefault();
+    document.getElementById('checkinNote').textContent='This is a sample form for the presentation. In your rollout, check-ins go to your firm\'s central inbox.';});
+})();
+</script>
+
+</body>
+</html>
